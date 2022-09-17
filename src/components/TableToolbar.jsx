@@ -1,8 +1,9 @@
 import { Box, Button } from '@mui/material'
 import React from 'react'
 import ToolbarSearch from './ToolbarSearch'
+import AddTask from './AddTask'
 
-const TableToolbar = ({ query, setQuery }) => {
+const TableToolbar = ({ query, setQuery, openTaskModal, setOpenTaskModal, setData, data }) => {
   return (
     <Box
         sx={{
@@ -14,14 +15,28 @@ const TableToolbar = ({ query, setQuery }) => {
     >
         <ToolbarSearch query={query} setQuery={setQuery} />
 
-        <Button
-            variant='contained'
-            sx={{
-                marginRight: '10px'
-            }}
-        >
-            Create Task
-        </Button>
+        {
+            (!openTaskModal) && (
+                <Button
+                    variant='contained'
+                    sx={{
+                        marginRight: '10px'
+                    }}
+                    onClick={() => setOpenTaskModal(!openTaskModal)}
+                >
+                    Create Task
+                </Button>
+            )
+        }
+
+        {
+            openTaskModal && <AddTask 
+                                openTaskModal={openTaskModal} 
+                                setOpenTaskModal={setOpenTaskModal}
+                                data={data}
+                                setData={setData}
+                            />
+        }
     </Box>
   )
 }

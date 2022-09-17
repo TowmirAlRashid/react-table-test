@@ -1,6 +1,7 @@
 import { Button, Checkbox, Divider, TableCell, TableHead, TableRow } from '@mui/material'
 import React from 'react'
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
+import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward'
 
 const headCells = [
     {
@@ -27,11 +28,16 @@ const headCells = [
         id: '4',
         disablePadding: true,
         label: 'Maturity Date',
+    },
+    {
+        id: '5',
+        disablePadding: true,
+        label: 'Actions'
     }
 ]
 
 const EnhancedTableHead = (props) => {
-    const { onSelectAllClick } = props;
+    const { onSelectAllClick, setNameOrderSort, nameOrderSort } = props;
   return (
     <TableHead
         sx={{
@@ -57,7 +63,6 @@ const EnhancedTableHead = (props) => {
             {
                 headCells.map((headCell) => (
                     <>
-                        {/* <Divider orientation="vertical" variant="middle" flexItem key={headCell?.id} /> */}
                         <TableCell
                             key={headCell?.id}
                             align={'left'}
@@ -67,6 +72,7 @@ const EnhancedTableHead = (props) => {
                                     <>
                                         {headCell?.label}
                                         <Button
+                                            onClick={() => {nameOrderSort === 'asc' ? setNameOrderSort('dsc') : setNameOrderSort('asc') }}
                                             variant='text'
                                             sx={{
                                                 color: 'black',
@@ -76,7 +82,9 @@ const EnhancedTableHead = (props) => {
                                             }}
                                             key={headCell?.id}
                                         >
-                                            <ArrowUpwardIcon key={headCell?.id} />
+                                            { 
+                                                nameOrderSort === 'asc' ? <ArrowUpwardIcon key={headCell?.id} /> : <ArrowDownwardIcon key={headCell?.id} />
+                                            }
                                         </Button>
                                     </>
                                 ) : headCell?.label
@@ -84,6 +92,9 @@ const EnhancedTableHead = (props) => {
                         </TableCell>
                     </>
                 ))
+            }
+            {
+
             }
         </TableRow>
     </TableHead>
